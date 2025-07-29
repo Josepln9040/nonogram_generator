@@ -1,3 +1,37 @@
 <%- include("header.ejs")%>
+    <form action="/generate" method="post">
+        <label for="selectX" name="label-selectX">Choose a width</label>
+        <select name="selectX" id="selectX">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
 
+        <label for="selectY" name="label-selectY">Choose a height</label>
+        <select name="selectY" id="selectY">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <button type="submit">Generate nonogram</button>
+    </form>
+
+    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates){%>
+        <%
+        console.log(coordinates);
+        coordinates.forEach(coordinate => {
+            if(coordinate[0]==0){
+                console.log(coordinate);
+            }
+        });%>
+        <%for(i = 0; i < lenghtY; i++){%>
+            <div>
+            <%for(j = 0; j < lenghtX; j++){%>
+                <span id="<%=i+','+j%>">span</span>
+            <%}%>
+            </div>
+        <%}%>
+    <%}%>
 <%- include("footer.ejs")%>
