@@ -18,14 +18,19 @@
         <button type="submit">Generate nonogram</button>
     </form>
 
-    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates){%>
-        <%
+    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates &&locals.clues){%>
+        <!--%
         console.log(coordinates);
         coordinates.forEach(coordinate => {
             if(coordinate[0]==0){
                 console.log(coordinate);
             }
-        });%>
+        });%-->
+        <div>
+        <%clues.forEach(clue =>{%>
+            <span><%%></span>
+        <%})%>
+        </div>
         <%for(i = 0; i < lenghtY; i++){%>
             <div>
             <%for(j = 0; j < lenghtX; j++){%>

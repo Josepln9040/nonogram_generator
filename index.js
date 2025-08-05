@@ -16,7 +16,7 @@ app.get("/", (req,res)=>{
 app.post("/generate", (req, res)=>{
     var coordinates = generate(req.body.selectX, req.body.selectY);
     GenerateClues(coordinates);
-    res.render("index.ejs", {lenghtX: req.body.selectX, lenghtY: req.body.selectY, coordinates: coordinates});
+    res.render("index.ejs", {lenghtX: req.body.selectX, lenghtY: req.body.selectY, coordinates: coordinates, clues : GenerateClues(coordinates)});
 });
 
 app.listen(port,()=>{
@@ -49,25 +49,39 @@ function generate(gridx, gridy){
     return coordinates;
 }
 
-function GenerateClues(coordinates){
-    var cluesX =[];
-    var clue = 1;
-    var column = 0;
-    var row = 0;
-    coordinates.sort();
-    coordinates.forEach((coordinate, index) => {
-        if (index === 0)
-            {return;}//Buscar la manera de que se registre si solamente el primer número de la columna es consecutivo 
-        else if(coordinate[0]==coordinates[index-1][0]){
-            if(coordinate[1]==(coordinates[index-1][1])+1){
-                clue++;
-            }else{
-                cluesX.push([column, clue]);
-                clue = 1;
-            }
-        }else{
-            column++;//reemplazar por el index de la columna
+function GenerateClues(rawCoordinates){
+    rawCoordinates.sort();
+    var coordinates =  Array.from(
+        new Set(rawCoordinates.map(JSON.stringify)),
+        JSON.parse);
+    console.log(coordinates);
+
+       const grouped = {};
+
+        for (const [x, y] of coordinates) {
+        if (!grouped[x]) grouped[x] = [];
+        grouped[x].push(y);
         }
-    });
-    console.log(cluesX);
+
+        const result = [];
+
+        // Paso 2: Procesar cada grupo
+        for (const col in grouped) {
+        const yValues = grouped[col].sort((a, b) => a - b);
+
+        let count = 1;
+
+        for (let i = 1; i < yValues.length; i++) {
+            if (yValues[i] === yValues[i - 1] + 1) {
+            count++;
+            } else {
+            result.push([parseInt(col), count]);
+            count = 1;
+            }
+        }
+        // Push the last count
+        result.push([parseInt(col), count]);
+        }
+        
+        return(result);
 }
