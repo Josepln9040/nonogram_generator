@@ -27,9 +27,13 @@
             }
         });%-->
         <div>
-        <%clues.forEach(clue =>{%>
-            <span><%%></span>
-        <%})%>
+            <%for(j = 0; j < lenghtX; j++){%>
+                <span id="<%='clue '+j%>"><% clues.forEach(clue =>{%>
+                    <%if(clue[0]==j){%>
+                        <span><%=clue[1]%></span>
+                    <%}%>
+                <%}) %></span>
+            <%}%>
         </div>
         <%for(i = 0; i < lenghtY; i++){%>
             <div>

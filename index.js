@@ -54,7 +54,6 @@ function GenerateClues(rawCoordinates){
     var coordinates =  Array.from(
         new Set(rawCoordinates.map(JSON.stringify)),
         JSON.parse);
-    console.log(coordinates);
 
        const grouped = {};
 
