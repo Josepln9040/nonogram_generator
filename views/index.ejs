@@ -1,3 +1,57 @@
 <%- include("header.ejs")%>
+    <form action="/generate" method="post">
+        <label for="selectX" name="label-selectX">Choose a width</label>
+        <select name="selectX" id="selectX">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
 
+        <label for="selectY" name="label-selectY">Choose a height</label>
+        <select name="selectY" id="selectY">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <button type="submit">Generate nonogram</button>
+    </form>
+
+    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates &&locals.cluesX && locals.cluesY){%>
+        <div>
+            <%var isFirstX = true%> 
+            <%for(j = 0; j < lenghtX; j++){%>
+                <span id="<%='clue '+j%>"><% cluesX.forEach(clue =>{%>
+                    <%if(clue[0]==j){%>
+                        <%isFirstX = true;%>
+                        <span><%=clue[1]%></span>
+                    <%}else if (cluesX.find(clueX => clueX[0]==j)===undefined && isFirstX){%>
+                        <span>0</span>  
+                    <%isFirstX = false;}%>
+                <%}) %></span>
+            <%}%>
+        </div>
+        <%var isFirstY = true;%> 
+        <%for(i = 0; i < lenghtY; i++){%>
+            <div>
+                <span id="<%='clue '+ i%>"><% cluesY.forEach(clue =>{%>
+                    <%if(clue[0]==i){%>
+                        <%
+                            isFirstY = true;
+                        %>
+                        <span><%=clue[1]%></span>
+                    <%}else if (cluesY.find(clueY => clueY[0]==i)===undefined && isFirstY){%>
+                        <span>0</span>  
+                    <%
+                        isFirstY = false;
+                    }
+                    %>
+             <%}) %></span>
+            <%for(j = 0; j < lenghtX; j++){%>
+                <span id="<%=i+','+j%>">span</span>
+            <%}%>
+            </div>
+        <%}%>
+    <%}%>
 <%- include("footer.ejs")%>
