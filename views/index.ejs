@@ -18,25 +18,36 @@
         <button type="submit">Generate nonogram</button>
     </form>
 
-    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates &&locals.clues){%>
-        <!--%
-        console.log(coordinates);
-        coordinates.forEach(coordinate => {
-            if(coordinate[0]==0){
-                console.log(coordinate);
-            }
-        });%-->
+    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates &&locals.cluesX && locals.cluesY){%>
         <div>
+            <%var isFirstX = true%> 
             <%for(j = 0; j < lenghtX; j++){%>
-                <span id="<%='clue '+j%>"><% clues.forEach(clue =>{%>
+                <span id="<%='clue '+j%>"><% cluesX.forEach(clue =>{%>
                     <%if(clue[0]==j){%>
+                        <%isFirstX = true;%>
                         <span><%=clue[1]%></span>
-                    <%}%>
+                    <%}else if (cluesX.find(clueX => clueX[0]==j)===undefined && isFirstX){%>
+                        <span>0</span>  
+                    <%isFirstX = false;}%>
                 <%}) %></span>
             <%}%>
         </div>
+        <%var isFirstY = true;%> 
         <%for(i = 0; i < lenghtY; i++){%>
             <div>
+                <span id="<%='clue '+ i%>"><% cluesY.forEach(clue =>{%>
+                    <%if(clue[0]==i){%>
+                        <%
+                            isFirstY = true;
+                        %>
+                        <span><%=clue[1]%></span>
+                    <%}else if (cluesY.find(clueY => clueY[0]==i)===undefined && isFirstY){%>
+                        <span>0</span>  
+                    <%
+                        isFirstY = false;
+                    }
+                    %>
+             <%}) %></span>
             <%for(j = 0; j < lenghtX; j++){%>
                 <span id="<%=i+','+j%>">span</span>
             <%}%>
