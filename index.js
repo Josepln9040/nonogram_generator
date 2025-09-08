@@ -7,6 +7,7 @@ const port = 3000;
 var rangex = [];
 var rangey = [];
 
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req,res)=>{
@@ -15,7 +16,7 @@ app.get("/", (req,res)=>{
 
 app.post("/generate", (req, res)=>{
     var coordinates = generate(req.body.selectX, req.body.selectY);
-    res.render("index.ejs", {lenghtX: req.body.selectX, lenghtY: req.body.selectY, coordinates: coordinates, cluesX : GenerateCluesX(coordinates), cluesY : GenerateCluesY(coordinates)});
+    res.render("index.ejs", {lengthX: req.body.selectX, lengthY: req.body.selectY, coordinates: coordinates, cluesX : GenerateCluesX(coordinates), cluesY : GenerateCluesY(coordinates)});
 });
 
 app.listen(port,()=>{
@@ -38,7 +39,6 @@ function generate(gridx, gridy){
     var coordinates = [];
 
     populate(gridx, gridy);
-    //reescribir para que no tenga rangos tan bestias
     for(var i=0; i <= numberOfTiles ; i++){
         var randomIndexX = Math.floor(Math.random() * rangex.length);
         var randomIndexY = Math.floor(Math.random() * rangey.length);
@@ -118,4 +118,8 @@ function GenerateCluesY(rawCoordinates){
     }
     
     return(result);
+}
+
+function fill(){
+
 }

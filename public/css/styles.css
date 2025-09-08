@@ -1,0 +1,29 @@
+div{
+    display: flex;
+    flex-basis: content;
+}
+
+.clue-outer{
+    display: flex;
+    align-items: end;
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    text-align: center;
+}
+
+.clue-inner{
+    padding: 0 0.5em;
+}
+
+.clue-y{
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+.grid-span{
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    border: 2px solid black;
+}

@@ -18,38 +18,40 @@
         <button type="submit">Generate nonogram</button>
     </form>
 
-    <%if(locals.lenghtX && locals.lenghtY && locals.coordinates &&locals.cluesX && locals.cluesY){%>
+    <%if(locals.lengthX && locals.lengthY && locals.coordinates &&locals.cluesX && locals.cluesY){%>
         <div>
             <%var isFirstX = true%> 
-            <%for(j = 0; j < lenghtX; j++){%>
-                <span id="<%='clue '+j%>"><% cluesX.forEach(clue =>{%>
+            <span class="clue-outer" id="filler-clue"></span>
+            <%for(j = 0; j < lengthX; j++){%>
+                <span class="clue-outer clue-y" id="<%='clue '+j%>"><% cluesX.forEach(clue =>{%>
                     <%if(clue[0]==j){%>
                         <%isFirstX = true;%>
-                        <span><%=clue[1]%></span>
+                        <span class="clue-inner"><%=clue[1]%></span>
                     <%}else if (cluesX.find(clueX => clueX[0]==j)===undefined && isFirstX){%>
-                        <span>0</span>  
+                        <span class="clue-inner">0</span>  
                     <%isFirstX = false;}%>
                 <%}) %></span>
             <%}%>
         </div>
         <%var isFirstY = true;%> 
-        <%for(i = 0; i < lenghtY; i++){%>
+        <%for(i = 0; i < lengthY; i++){%>
             <div>
-                <span id="<%='clue '+ i%>"><% cluesY.forEach(clue =>{%>
+                <span class="clue-outer" id="<%='clue '+ i%>"><% cluesY.forEach(clue =>{%>
                     <%if(clue[0]==i){%>
                         <%
                             isFirstY = true;
                         %>
-                        <span><%=clue[1]%></span>
+                        <span class="clue-inner"><%=clue[1]%></span>
                     <%}else if (cluesY.find(clueY => clueY[0]==i)===undefined && isFirstY){%>
-                        <span>0</span>  
+                        <span class="clue-inner">0</span>  
                     <%
                         isFirstY = false;
                     }
                     %>
              <%}) %></span>
-            <%for(j = 0; j < lenghtX; j++){%>
-                <span id="<%=i+','+j%>">span</span>
+            <%for(j = 0; j < lengthX; j++){%>
+                <%var currentId=i+','+j%>
+                <span id="<%=i+','+j%>" class="grid-span" onclick="this.style='background-color:black;';"></span>
             <%}%>
             </div>
         <%}%>
